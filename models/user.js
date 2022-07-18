@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     api_token :DataTypes.STRING,
     facebook_id :DataTypes.STRING,
     google_id :DataTypes.STRING,
+    status :DataTypes.STRING,
     profile_pic : DataTypes.STRING,
     user_type:DataTypes.STRING,
     phone_no:DataTypes.BIGINT,
@@ -45,7 +46,7 @@ User.associate = function(models) {
     //     foreignKey : 'employee_id',
     //     sourceKey: 'id'
     // });
-  // User.sync({force:true})
+//  User.sync({force:true})
     console.log(models);
   // models.comment.sync({force:true})
   // models.user.sync({alter:true})

@@ -3,7 +3,7 @@ var { paginateArray, sortCompare } = require('./utils/utils')
 
   exports.createProject = async function (req, res, next) {
     console.log("dfadsfasdfasdef  " ,req.body);
-    const newEmployee = await Project.create({
+    const newProject = await Project.create({
       description:req.body.description,  
       start_date: req.body.start_date, 
       status:     req.body.status,  
@@ -18,14 +18,15 @@ var { paginateArray, sortCompare } = require('./utils/utils')
     }).catch(err=>{
         res.send(err)
     })
-    res.json(newEmployee)
+    res.json(newProject)
   }
   exports.showProjects = async (req,res)=>{
     console.log( sortCompare );
-    const { q = '', perPage = 10, page = 1, status = null } = req.params
+    const { q = '', perPage = 10, page = 1, status = null } =  { q:req.query.q, perPage:req.query.perPage,  page:req.query.page, status:req.query.status }
     // const { q = '', perPage = 10, page = 1, status = null } = { q : '', perPage : 10, page : 1, status : null }
-
+    console.log(req.query.q,req.query.status,req.query.page,req.query.perPage);
     /* eslint-enable */
+    console.log(q,perPage,page,status);
     const data = await Project.findAll()
     const queryLowered = q.toLowerCase()
     const filteredData = data
@@ -34,7 +35,7 @@ var { paginateArray, sortCompare } = require('./utils/utils')
           /* eslint-disable operator-linebreak, implicit-arrow-linebreak */
           (project.description.toLowerCase().includes(queryLowered) ||
             project.project_title.toLowerCase().includes(queryLowered)) &&
-          project.document_file.toLowerCase() === ( status && status.toLowerCase() || project.document_file.toLowerCase())
+          project.status.toLowerCase() === ( status && status.toLowerCase() || project.status.toLowerCase())
       )
       .sort(sortCompare('id')) 
       .reverse()
