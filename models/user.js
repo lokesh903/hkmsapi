@@ -41,12 +41,12 @@ createdAt: false,
 // If don't want updatedAt
 updatedAt: false
 });
-User.associate = function(models) {
-    // Employee.hasMany(models.salaries, {
-    //     foreignKey : 'employee_id',
-    //     sourceKey: 'id'
-    // });
-//  User.sync({force:true})
+  User.associate = function(models) {
+    User.hasMany(models.userproject, {
+      foreignKey : 'user_id',
+      sourceKey: 'id'
+  });
+  // User.sync()
     console.log(models);
   // models.comment.sync({force:true})
   // models.user.sync({alter:true})
